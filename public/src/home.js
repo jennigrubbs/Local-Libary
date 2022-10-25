@@ -1,3 +1,12 @@
+// this is a helper function to sort oject keys by value
+function sortingHelper(objectToSort) {
+  return Object.keys(objectToSort).sort((left, right) => {
+    if (objectToSort[left] < objectToSort[right]) return 1
+    if (objectToSort[left] > objectToSort[right]) return -1
+    return 0
+  } )
+}
+
 function getTotalBooksCount(books) {
   return books.length
 } // passes tests
@@ -32,17 +41,7 @@ function getMostCommonGenres(books) {
   }, 
   {}) // {Science: 10, Classical: 2}
 
-  let sorted = Object.keys(mostCommonGenres).sort((genreA, genreB) => {
-    if (mostCommonGenres[genreA] < mostCommonGenres[genreB]) {
-      return 1
-    } 
-
-    if (mostCommonGenres[genreA] > mostCommonGenres[genreB]) {
-      return -1
-    }
-
-    return 0
-  }) // ['Science', 'Classical']
+  let sorted = sortingHelper(mostCommonGenres) // ['Science', 'Classical']
 
   let mappedSort = sorted.map((genre) => {
     return {
@@ -74,11 +73,8 @@ function getMostPopularBooks(books) {
     return state
   }, {}) // {Clifford: 10}
 
-  let sorted = Object.keys(topBooks).sort((bookA, bookB) => {
-    if (topBooks[bookA] < topBooks[bookB]) return 1
-    if (topBooks[bookA] > topBooks[bookB]) return -1
-    return 0
-  } )
+  let sorted = sortingHelper(topBooks)
+
   let mappedBooks = sorted.map((bookTitle) => {
     return {
       name: bookTitle,
@@ -97,11 +93,7 @@ function getMostPopularAuthors(books, authors) {
     return state
   }, {})
 
-  let sorted = Object.keys(topAuthors).sort((authorA, authorB) => {
-    if (topAuthors[authorA] < topAuthors[authorB]) return 1
-    if (topAuthors[authorA] > topAuthors[authorB]) return -1
-    return 0
-  } )
+  let sorted = sortingHelper(topAuthors)
 
   let mappedBooks = sorted.map((authorId) => {
     const author = authors.find(thisAuthor => thisAuthor.id === Number(authorId))
